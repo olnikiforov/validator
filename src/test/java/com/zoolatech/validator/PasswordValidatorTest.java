@@ -2,6 +2,7 @@ package com.zoolatech.validator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -14,14 +15,18 @@ public class PasswordValidatorTest {
 
     @BeforeEach
     void initializeTests(){
-        commonPasswordChecker = new CommonPasswordChecker();
+        commonPasswordChecker = Mockito.mock(CommonPasswordChecker.class);
         passwordValidator = new PasswordValidator(commonPasswordChecker);
     }
 
     @Test
     void passwordShouldNotBeNull(){
-        assertFalse(passwordValidator.checkPasswordNull(null));
         assertTrue(passwordValidator.checkPasswordNull("1234567"));
+    }
+
+    @Test
+    void passwordShouldFailWhenPaswordIsNull(){
+        assertFalse(passwordValidator.checkPasswordNull(null));
     }
 
     @Test
@@ -47,9 +52,17 @@ public class PasswordValidatorTest {
 
     @Test
     void passwordShouldContainDifferentCases(){
-        assertFalse(passwordValidator.checkPasswordUpperLowerCase("poisontouch"));
-        assertFalse(passwordValidator.checkPasswordUpperLowerCase("POISONTOUCH"));
         assertTrue(passwordValidator.checkPasswordUpperLowerCase("PoisonTouch"));
+    }
+
+    @Test
+    void shouldFailValidationWhenPasswordInUpperCase(){
+        assertFalse(passwordValidator.checkPasswordUpperLowerCase("POISONTOUCH"));
+    }
+
+    @Test
+    void shouldFailValidationWhenPasswordInLowerCase(){
+        assertFalse(passwordValidator.checkPasswordUpperLowerCase("poisontouch"));
     }
 
     @Test

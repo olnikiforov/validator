@@ -18,12 +18,12 @@ public class CommonPasswordCheckerTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"1234567", "qwerty", "abcdef", "putinhuilo"})
-    void isPasswordCommon(String password){
+    void shouldReturnTrueIfCommonPassword(String password){
         assertTrue(commonPasswordChecker.checkCommonPassword(password));
     }
 
     @Test
-    void isNotCommonPassword(){
+    void shouldReturnFalseForNotCommonPassword(){
         assertFalse(commonPasswordChecker.checkCommonPassword("P@ison28Touch"));
     }
 
