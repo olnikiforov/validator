@@ -45,8 +45,11 @@ public class PasswordValidatorTest {
     }
 
     @Test
-    void passwordShouldNotContainSameNumbers(){
+    void shouldFailValidationWhenPasswordContainSameNumbers(){
         assertFalse(passwordValidator.checkPasswordSameNumber("11111111"));
+    }
+    @Test
+    void passwordShouldNotContainSameNumbers(){
         assertTrue(passwordValidator.checkPasswordSameNumber("12345678"));
     }
 
@@ -66,20 +69,32 @@ public class PasswordValidatorTest {
     }
 
     @Test
-    void passwordShouldContainNumber(){
+    void shouldFailValidaionWhenPasswordDoNotContainNumber(){
         assertFalse(passwordValidator.checkPasswordHasNumber("PoisonTouch"));
+    }
+
+    @Test
+    void passwordShouldContainNumber(){
         assertTrue(passwordValidator.checkPasswordHasNumber("Poison1Touch"));
     }
 
     @Test
-    void passwordShouldContainSpecialCharacter(){
+    void shouldFailValidationWhenPasswordDoNotContainSpecialNumber(){
         assertFalse(passwordValidator.checkPasswordSpecialCharacter("PoisonTouch"));
+    }
+
+    @Test
+    void passwordShouldContainSpecialCharacter(){
         assertTrue(passwordValidator.checkPasswordSpecialCharacter("Poison@Touch"));
     }
 
     @Test
-    void passwordShouldNotContainContinuousNumbers(){
+    void shouldFailValidationWhenPasswordContainConinousNumbers(){
         assertFalse(passwordValidator.checkPasswordContinuousNumbers("12345678"));
+    }
+
+    @Test
+    void passwordShouldNotContainContinuousNumbers(){
         assertTrue(passwordValidator.checkPasswordContinuousNumbers("127564321"));
     }
 
